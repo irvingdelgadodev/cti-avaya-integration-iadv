@@ -1,0 +1,222 @@
+<!-- Toolbar Principal -->
+<mat-toolbar color="primary" class="dashboard-toolbar">
+  <mat-toolbar-row>
+    <span class="toolbar-title">
+      <mat-icon>phone_in_talk</mat-icon>
+      CTI Dashboard - IADV
+    </span>
+    <span class="toolbar-spacer"></span>
+    <div class="toolbar-status">
+      <mat-chip 
+        [color]="connected() ? 'primary' : 'warn'" 
+        selected
+        class="status-chip"
+        [style.background-color]="connected() ? '#2e7d32' : '#b71c1c'"
+        [style.color]="'#ffffff'"
+      >
+        <mat-icon>{{ connected() ? 'check_circle' : 'error' }}</mat-icon>
+        {{ connected() ? 'Conectado' : 'Desconectado' }}
+      </mat-chip>
+      <span class="last-update" *ngIf="!loading() && !error()">
+        {{ activeCallsCount() }} llamadas activas
+      </span>
+    </div>
+  </mat-toolbar-row>
+  <mat-progress-bar 
+    *ngIf="loading()" 
+    mode="indeterminate" 
+    color="accent"
+  ></mat-progress-bar>
+</mat-toolbar>
+
+<!-- Error Banner -->
+<mat-card *ngIf="error()" class="error-card">
+  <mat-card-content>
+    <div class="error-content">
+      <mat-icon color="warn">error</mat-icon>
+      <span>{{ error() }}</span>
+      <button mat-icon-button (click)="stateService.clearError()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<!-- Contenido Principal -->
+<div class="dashboard-content">
+
+  <!-- Tarjetas de Estadísticas -->
+  <div class="stats-grid">
+    <mat-card class="stat-card" style="border-left: 4px solid #0d47a1;">
+      <mat-card-content>
+        <div class="stat-content">
+          <mat-icon class="stat-icon" style="color: #0d47a1;">call</mat-icon>
+          <div class="stat-info">
+            <span class="stat-value">{{ activeCallsCount() }}</span>
+            <span class="stat-label">Llamadas Activas</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card" style="border-left: 4px solid #2e7d32;">
+      <mat-card-content>
+        <div class="stat-content">
+          <mat-icon class="stat-icon" style="color: #2e7d32;">check_circle</mat-icon>
+          <div class="stat-info">
+            <span class="stat-value">{{ availableAgents() }}</span>
+            <span class="stat-label">Agentes Disponibles</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card" style="border-left: 4px solid #b71c1c;">
+      <mat-card-content>
+        <div class="stat-content">
+          <mat-icon class="stat-icon" style="color: #b71c1c;">cancel</mat-icon>
+          <div class="stat-info">
+            <span class="stat-value">{{ busyAgents() }}</span>
+            <span class="stat-label">Agentes Ocupados</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card" style="border-left: 4px solid #4a148c;">
+      <mat-card-content>
+        <div class="stat-content">
+          <mat-icon class="stat-icon" style="color: #4a148c;">people</mat-icon>
+          <div class="stat-info">
+            <span class="stat-value">{{ agents().length }}</span>
+            <span class="stat-label">Total Agentes</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Grid Principal -->
+  <div class="main-grid">
+    <!-- Tabla de Llamadas -->
+    <mat-card class="calls-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>call</mat-icon>
+          Llamadas Activas
+          <mat-chip 
+            *ngIf="calls().length > 0" 
+            color="primary" 
+            selected
+            style="margin-left: 10px;"
+          >
+            {{ calls().length }}
+          </mat-chip>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngIf="loading() && calls().length === 0" class="loading-container">
+          <mat-spinner diameter="40"></mat-spinner>
+          <p>Cargando llamadas...</p>
+        </div>
+        
+        <div *ngIf="!loading() && calls().length === 0" class="empty-state">
+          <mat-icon>phone_disabled</mat-icon>
+          <p>No hay llamadas activas</p>
+        </div>
+        
+        <table mat-table [dataSource]="calls()" *ngIf="calls().length > 0">
+          <ng-container matColumnDef="callId">
+            <th mat-header-cell *matHeaderCellDef> Call ID </th>
+            <td mat-cell *matCellDef="let call"> 
+              <strong>{{ call.callId }}</strong>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="extension">
+            <th mat-header-cell *matHeaderCellDef> Extensión </th>
+            <td mat-cell *matCellDef="let call"> 
+              <mat-chip size="small">{{ call.extension }}</mat-chip>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="agentId">
+            <th mat-header-cell *matHeaderCellDef> Agente </th>
+            <td mat-cell *matCellDef="let call"> 
+              <mat-icon style="font-size: 16px; width: 16px; height: 16px; vertical-align: middle;">person</mat-icon>
+              {{ call.agentId }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="phoneNumber">
+            <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+            <td mat-cell *matCellDef="let call"> 
+              <mat-icon style="font-size: 16px; width: 16px; height: 16px; vertical-align: middle;">phone</mat-icon>
+              {{ call.phoneNumber }}
+            </td>
+          </ng-container>
+
+          <!-- ✅ ESTADO SIN ICONO - SOLO TEXTO -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let call">
+              <span 
+                class="status-badge" 
+                [style.background-color]="getStatusBadgeColor(call.status)"
+                [style.color]="getStatusTextColor(call.status)"
+              >
+                <span class="status-text">{{ call.status }}</span>
+              </span>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Tarjeta de Agentes -->
+    <mat-card class="agents-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>people</mat-icon>
+          Agentes
+          <mat-chip 
+            *ngIf="agents().length > 0" 
+            color="primary" 
+            selected
+            style="margin-left: 10px;"
+          >
+            {{ agents().length }}
+          </mat-chip>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngIf="agents().length === 0" class="empty-state">
+          <mat-icon>person_off</mat-icon>
+          <p>No hay agentes registrados</p>
+        </div>
+        
+        <div *ngFor="let agent of agents()" class="agent-item">
+          <div class="agent-info">
+            <mat-icon style="color: #666;">person</mat-icon>
+            <span class="agent-id">{{ agent.agentId }}</span>
+            <span *ngIf="agent.currentCallId" class="agent-call">
+              <mat-icon style="font-size: 16px; width: 16px; height: 16px;">call</mat-icon>
+              {{ agent.currentCallId }}
+            </span>
+          </div>
+          <!-- ✅ ESTADO SIN ICONO - SOLO TEXTO -->
+          <span 
+            class="status-badge" 
+            [style.background-color]="getStatusBadgeColor(agent.status)"
+            [style.color]="getStatusTextColor(agent.status)"
+          >
+            <span class="status-text">{{ agent.status }}</span>
+          </span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
