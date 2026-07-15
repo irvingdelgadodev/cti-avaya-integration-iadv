@@ -181,7 +181,8 @@ cd cti-frontend
 npm install
 
 # Ejecutar la aplicación
-El frontend estará disponible en: http://localhost:4200
+ng serve
+- El frontend estará disponible en: http://localhost:4200
 
 📡 Endpoints de la API
 Método	Endpoint	Descripción
