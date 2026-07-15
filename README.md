@@ -159,9 +159,10 @@ ng version
 # Debe mostrar: Angular CLI: 19.x.x
 
 1. Clonar el repositorio
-git clone (url-del-repositorio)
-cd CTI-AVAYA-IADV
-3. Ejecutar el Backend
+- git clone (url-del-repositorio)
+- cd CTI-AVAYA-IADV
+  
+2. Ejecutar el Backend
 # Navegar a la carpeta del backend
 cd cti-avaya-integration
 
