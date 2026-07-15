@@ -220,49 +220,51 @@ Agentes Ocupados: Agentes en llamada
 Total Agentes: Cantidad de agentes registrados
 
 📋 Tabla de Llamadas Activas
-Columna	Descripción
-Call ID	Identificador único de la llamada
-Extensión	Extensión telefónica asociada
-Agente	ID del agente asignado
-Teléfono	Número de teléfono del cliente
-Estado	Estado actual de la llamada
+- Columna	Descripción
+- Call ID	Identificador único de la llamada
+- Extensión	Extensión telefónica asociada
+- Agente	ID del agente asignado
+- Teléfono	Número de teléfono del cliente
+- Estado	Estado actual de la llamada
 🎨 Colores de Estados
-Estado	Color	Descripción
-RECEIVED	🟧 Naranja	Llamada recibida
-ANSWERED	🟩 Verde	Llamada contestada
-HOLD	🟧 Naranja	Llamada en espera
-RESUME	🟦 Azul	Llamada reanudada
-TRANSFER	🟪 Morado	Llamada transferida
-ENDED	🟥 Rojo	Llamada finalizada
-AVAILABLE	🟩 Verde	Agente disponible
-BUSY	🟥 Rojo	Agente ocupado
+- Estado	Color	Descripción
+- RECEIVED	🟧 Naranja	Llamada recibida
+- ANSWERED	🟩 Verde	Llamada contestada
+- HOLD	🟧 Naranja	Llamada en espera
+- RESUME	🟦 Azul	Llamada reanudada
+- TRANSFER	🟪 Morado	Llamada transferida
+- ENDED	🟥 Rojo	Llamada finalizada
+- AVAILABLE	🟩 Verde	Agente disponible
+- BUSY	🟥 Rojo	Agente ocupado
 ⚙️ Configuración
-Backend (application.properties)
-properties
+- Backend (application.properties)
+- properties
 # Servidor
-server.port=8080
+- server.port=8080
 
 # WebSocket
-cti.websocket.url=ws://precook-overtone-syndrome.ngrok-free.dev
-cti.websocket.reconnect-delay=5000
-cti.websocket.max-retries=10
+- cti.websocket.url=ws://precook-overtone-syndrome.ngrok-free.dev
+- cti.websocket.reconnect-delay=5000
+- cti.websocket.max-retries=10
 
 # Logging
-logging.level.com.iadv.cti.avaya=DEBUG
-logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} - %msg%n
+- logging.level.com.iadv.cti.avaya=DEBUG
+- logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} - %msg%n
 
 # Actuator
-management.endpoints.web.exposure.include=health,info,metrics
+- management.endpoints.web.exposure.include=health,info,metrics
 
 # Swagger
-springdoc.api-docs.path=/api-docs
-springdoc.swagger-ui.path=/swagger-ui.html
+Url: http://localhost:8080/swagger-ui/index.html#/
+- springdoc.api-docs.path=/api-docs
+- springdoc.swagger-ui.path=/swagger-ui.html
+
 Frontend (src/app/core/services/cti-api.service.ts)
-typescript
-private baseUrl = 'http://localhost:8080/api/cti';
+typescript: private baseUrl = 'http://localhost:8080/api/cti';
+
 🧪 Pruebas
 Probar la API con cURL
-bash
+
 # Health Check
 curl http://localhost:8080/api/cti/health
 
@@ -271,12 +273,10 @@ curl http://localhost:8080/api/cti/calls/active
 
 # Agentes
 curl http://localhost:8080/api/cti/agents
+
+# Extensiones
+curl http://localhost:8080/api/cti/extensions
 Probar con Postman
-Importar la colección de Postman (si está disponible)
-
-Configurar la URL base: http://localhost:8080/api/cti
-
-Probar los endpoints
 
 📱 Responsive Design
 El dashboard es completamente responsive:
