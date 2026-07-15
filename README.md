@@ -160,7 +160,7 @@ ng version
 
 1. Clonar el repositorio
 - git clone (url-del-repositorio)
-- cd CTI-AVAYA-IADV
+- cd cti-avaya-integration-iadv
   
 2. Ejecutar el Backend
 # Navegar a la carpeta del backend
