@@ -171,7 +171,7 @@ cd cti-avaya-integration
 
 # Ejecutar la aplicación
 ./gradlew bootRun
-El backend estará disponible en: http://localhost:8080
+- El backend estará disponible en: http://localhost:8080
 
 3. Ejecutar el Frontend
 # Navegar a la carpeta del frontend
