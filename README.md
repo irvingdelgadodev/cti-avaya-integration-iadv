@@ -159,9 +159,9 @@ ng version
 # Debe mostrar: Angular CLI: 19.x.x
 
 1. Clonar el repositorio
-git clone <url-del-repositorio>
+git clone (url-del-repositorio)
 cd CTI-AVAYA-IADV
-2. Ejecutar el Backend
+3. Ejecutar el Backend
 # Navegar a la carpeta del backend
 cd cti-avaya-integration
 
@@ -284,6 +284,7 @@ Desktop	> 768px	Grid de 2 columnas
 Tablet	480px - 768px	Grid de 1 columna, estadísticas reducidas
 Mobile	< 480px	Grid de 1 columna, texto reducido
 🐛 Manejo de Errores
+
 Backend
 ✅ GlobalExceptionHandler para manejo centralizado de errores
 
@@ -303,67 +304,67 @@ Frontend
 🔒 Seguridad
 ⚠️ Nota: Este proyecto es para fines de prueba técnica y NO incluye:
 
-Autenticación/Autorización
+- Autenticación/Autorización
 
-Cifrado de datos
+- Cifrado de datos
 
-Base de datos persistente
+- Base de datos persistente
 
-📈 Características Implementadas
+📈 Características Implementadas:
 Backend
-Conexión WebSocket con reconexión automática
+- Conexión WebSocket con reconexión automática
 
-Manejo de estado thread-safe (ConcurrentHashMap)
+- Manejo de estado thread-safe (ConcurrentHashMap)
 
-Eventos: CALL_RECEIVED, ANSWERED, HOLD, RESUME, TRANSFER, ENDED
+- Eventos: CALL_RECEIVED, ANSWERED, HOLD, RESUME, TRANSFER, ENDED
 
-APIs REST completas
+- APIs REST completas
 
-Logging detallado
+- Logging detallado
 
-Manejo de eventos duplicados
+- Manejo de eventos duplicados
 
-Configuración externalizada
+- Configuración externalizada
 
 Frontend
-Dashboard en tiempo real (polling 2s)
+- Dashboard en tiempo real (polling 2s)
 
-Tabla de llamadas activas
+- Tabla de llamadas activas
 
-Estado de agentes
+- Estado de agentes
 
-Estadísticas en vivo
+- Estadísticas en vivo
 
-Manejo de estados (loading, error, empty)
+- Manejo de estados (loading, error, empty)
 
-Indicador de conexión
+- Indicador de conexión
 
-Diseño responsive con Angular Material
+- Diseño responsive con Angular Material
 
-Colores por estado
+- Colores por estado
 
-Acciones Hold/Resume
+- Acciones Hold/Resume
 
 Extras
-Swagger/OpenAPI
+- Swagger/OpenAPI
 
-Spring Actuator
+- Spring Actuator
 
-Retry/Backoff en reconexión
+- Retry/Backoff en reconexión
 
-Idempotencia en eventos duplicados
+- Idempotencia en eventos duplicados
 
-Health checks avanzados
+- Health checks avanzados
 
-📝 Notas de Entrega
+📝 Notas de Entrega:
 Archivos a Entregar
-Código fuente completo (backend + frontend)
+- Código fuente completo (backend + frontend)
 
-README.md (este documento)
+- README.md (este documento)
 
-Instrucciones de ejecución (incluidas en este README)
+- Instrucciones de ejecución (incluidas en este README)
 
-Consideraciones
+Consideraciones:
 ✅ Proyecto compilable y ejecutable
 
 ✅ Sin dependencias externas (excepto las declaradas)
